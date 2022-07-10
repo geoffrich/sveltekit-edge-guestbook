@@ -5,7 +5,10 @@
 
 	let signed = false;
 
-	function sign() {
+	async function sign() {
+		await fetch('/', {
+			method: 'POST'
+		});
 		visited.push(current_city);
 		visited = visited;
 		signed = true;

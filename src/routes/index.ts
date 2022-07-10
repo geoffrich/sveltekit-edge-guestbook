@@ -1,15 +1,9 @@
 import type { RequestHandler } from './__types/index';
-
-const CITY_HEADER = 'x-vercel-ip-city';
-const COUNTRY_HEADER = 'x-vercel-ip-country';
+import { CITY_HEADER, COUNTRY_HEADER } from '$lib/constants';
 
 export const get: RequestHandler = function ({ request }) {
-	let current_city = '';
+	let current_city = getCity(request);
 	let visited: string[] = [];
-
-	const city = request.headers.get(CITY_HEADER) ?? 'unknown city';
-	const country = getCountryName(request.headers.get(COUNTRY_HEADER));
-	current_city = `${city}, ${country}`;
 
 	return {
 		body: {
@@ -18,6 +12,20 @@ export const get: RequestHandler = function ({ request }) {
 		}
 	};
 };
+
+export const post: RequestHandler = async function ({ request }) {
+	console.log(getCity(request));
+
+	return {
+		status: 200
+	};
+};
+
+function getCity(request: Request) {
+	const city = request.headers.get(CITY_HEADER) ?? 'unknown city';
+	const country = getCountryName(request.headers.get(COUNTRY_HEADER));
+	return `${city}, ${country}`;
+}
 
 const displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
 function getCountryName(countryCode: string | null) {
