@@ -1,6 +1,9 @@
 import type { RequestHandler } from './__types/index';
 import { faker } from '@faker-js/faker';
 
+const CITY_HEADER = 'x-vercel-ip-city';
+const COUNTRY_HEADER = 'x-vercel-ip-country';
+
 export const get: RequestHandler = function ({ request }) {
 	let current_city = '';
 	let visited: string[] = [];
@@ -10,7 +13,9 @@ export const get: RequestHandler = function ({ request }) {
 			.fill('')
 			.map((_) => getFakeCity());
 	} else {
-		current_city = request.headers.get('x-vercel-ip-city') ?? 'unknown';
+		const city = request.headers.get(CITY_HEADER) ?? 'unknown city';
+		const country = getCountryName(request.headers.get(COUNTRY_HEADER));
+		current_city = `${city}, ${country}`;
 	}
 
 	return {
@@ -22,5 +27,13 @@ export const get: RequestHandler = function ({ request }) {
 };
 
 function getFakeCity() {
-	return `${faker.address.cityName()}, ${faker.address.country()}`;
+	return `${faker.address.cityName()}, ${getCountryName(faker.address.countryCode())}`;
+}
+
+const displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
+function getCountryName(countryCode: string | null) {
+	if (countryCode) {
+		return displayNames.of(countryCode);
+	}
+	return 'unknown country';
 }

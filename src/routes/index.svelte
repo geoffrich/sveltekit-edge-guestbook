@@ -28,7 +28,7 @@
 	<p>Thanks for signing the guest book!</p>
 {:else}
 	<p>
-		We see you're from {current_city}. would you like to sign the guest book?
+		We see you're from {current_city}. Would you like to sign the guest book?
 	</p>
 	<button on:click={sign}>I was here</button>
 {/if}
