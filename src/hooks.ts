@@ -2,7 +2,9 @@ import dotenv from 'dotenv';
 import type { Handle } from '@sveltejs/kit';
 import { COUNTRY_HEADER, CITY_HEADER } from '$lib/constants';
 
-dotenv.config();
+if (import.meta.env.DEV) {
+	dotenv.config();
+}
 
 export const handle: Handle = async function ({ event, resolve }) {
 	if (import.meta.env.DEV) {
