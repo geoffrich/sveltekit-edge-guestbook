@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { enhance } from '$lib/enhance';
+	import type { Visit } from '$lib/types';
 	import { slide } from 'svelte/transition';
-	export let visited: string[]; // TODO: number of people from city?
+	export let visited: Visit[];
 	export let current_city: string;
 	export let signed = false;
 </script>
@@ -10,8 +11,8 @@
 {#if visited.length > 0}
 	<p>This page has been visited by guests from the following cities:</p>
 	<ul>
-		{#each visited as visit (visit)}
-			<li in:slide>{visit}</li>
+		{#each visited as visit (visit.city)}
+			<li in:slide>{visit.city} ({visit.count})</li>
 		{/each}
 	</ul>
 {:else}

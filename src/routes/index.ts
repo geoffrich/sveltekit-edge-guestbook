@@ -1,9 +1,10 @@
 import type { RequestHandler } from './__types/index';
 import { CITY_HEADER, COUNTRY_HEADER } from '$lib/constants';
+import { get_visitors, add_visitor } from '$lib/data';
 
-export const get: RequestHandler = function ({ request }) {
-	let current_city = getCity(request);
-	let visited: string[] = [];
+export const get: RequestHandler = async function ({ request }) {
+	let current_city = get_city(request);
+	let visited = await get_visitors();
 
 	return {
 		body: {
@@ -14,28 +15,27 @@ export const get: RequestHandler = function ({ request }) {
 };
 
 export const post: RequestHandler = async function ({ request }) {
-	const city = getCity(request);
-	console.log(city);
+	const city = get_city(request);
+	await add_visitor(city);
 
 	return {
 		status: 200,
 		body: {
-			visited: [city],
 			signed: true
 		}
 	};
 };
 
-function getCity(request: Request) {
+function get_city(request: Request) {
 	const city = request.headers.get(CITY_HEADER) ?? 'unknown city';
-	const country = getCountryName(request.headers.get(COUNTRY_HEADER));
+	const country = get_country_name(request.headers.get(COUNTRY_HEADER));
 	return `${city}, ${country}`;
 }
 
-const displayNames = new Intl.DisplayNames(['en'], { type: 'region' });
-function getCountryName(countryCode: string | null) {
+const display_names = new Intl.DisplayNames(['en'], { type: 'region' });
+function get_country_name(countryCode: string | null) {
 	if (countryCode) {
-		return displayNames.of(countryCode);
+		return display_names.of(countryCode);
 	}
 	return 'unknown country';
 }
