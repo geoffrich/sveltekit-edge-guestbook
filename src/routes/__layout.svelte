@@ -2,6 +2,10 @@
 	import '../global.css';
 </script>
 
+<svelte:head>
+	<title>SvelteKit Edge Guest Book</title>
+</svelte:head>
+
 <main>
 	<slot />
 </main>
