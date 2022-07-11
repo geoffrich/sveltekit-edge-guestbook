@@ -14,10 +14,15 @@ export const get: RequestHandler = function ({ request }) {
 };
 
 export const post: RequestHandler = async function ({ request }) {
-	console.log(getCity(request));
+	const city = getCity(request);
+	console.log(city);
 
 	return {
-		status: 200
+		status: 200,
+		body: {
+			visited: [city],
+			signed: true
+		}
 	};
 };
 

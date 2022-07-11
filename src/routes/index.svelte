@@ -1,18 +1,9 @@
 <script lang="ts">
+	import { enhance } from '$lib/enhance';
 	import { slide } from 'svelte/transition';
 	export let visited: string[]; // TODO: number of people from city?
 	export let current_city: string;
-
-	let signed = false;
-
-	async function sign() {
-		await fetch('/', {
-			method: 'POST'
-		});
-		visited.push(current_city);
-		visited = visited;
-		signed = true;
-	}
+	export let signed = false;
 </script>
 
 <h1>SvelteKit Edge Guest Book</h1>
@@ -33,5 +24,15 @@
 	<p>
 		We see you're from {current_city}. Would you like to sign the guest book?
 	</p>
-	<button on:click={sign}>I was here</button>
+	<form
+		action="/"
+		method="post"
+		use:enhance={{
+			result: () => {
+				signed = true;
+			}
+		}}
+	>
+		<button>I was here</button>
+	</form>
 {/if}
