@@ -10,7 +10,7 @@ export async function get_visitors(): Promise<Visit[]> {
 	for (let i = 0; i < visitors.length; i += 2) {
 		const member = visitors[i];
 		const score = visitors[i + 1];
-		adapted.push({ city: member, count: score });
+		adapted.push({ city: decodeURIComponent(member), count: score });
 	}
 
 	return adapted;
