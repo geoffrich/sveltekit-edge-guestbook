@@ -1,8 +1,14 @@
 import type { RequestHandler } from './__types/index';
 import { CITY_HEADER, COUNTRY_HEADER } from '$lib/constants';
 import { get_visitors, add_visitor } from '$lib/data';
+import type { Visit } from '$lib/types';
 
-export const get: RequestHandler = async function ({ request }) {
+interface GetResponse {
+	visited: Visit[];
+	current_city: string;
+}
+
+export const get: RequestHandler<GetResponse> = async function ({ request }) {
 	let current_city = get_city(request);
 	let visited = await get_visitors();
 
