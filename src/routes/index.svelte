@@ -8,16 +8,6 @@
 </script>
 
 <h1>SvelteKit Edge Guest Book</h1>
-{#if visited.length > 0}
-	<p>This page has been visited by guests from the following cities:</p>
-	<ul>
-		{#each visited as visit (visit.city)}
-			<li in:slide>{visit.city} ({visit.count})</li>
-		{/each}
-	</ul>
-{:else}
-	<p>No one has signed the guest book yet.</p>
-{/if}
 
 {#if signed}
 	<p>Thanks for signing the guest book!</p>
@@ -36,4 +26,15 @@
 	>
 		<button>I was here</button>
 	</form>
+{/if}
+
+{#if visited.length > 0}
+	<p>This page has been visited by guests from the following cities:</p>
+	<ul>
+		{#each visited as visit (visit.city)}
+			<li in:slide>{visit.city} ({visit.count})</li>
+		{/each}
+	</ul>
+{:else}
+	<p>No one has signed the guest book yet.</p>
 {/if}
