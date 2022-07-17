@@ -8,7 +8,7 @@ interface GetResponse {
 	current_city: string;
 }
 
-export const get: RequestHandler<GetResponse> = async function ({ request }) {
+export const GET: RequestHandler<GetResponse> = async function ({ request }) {
 	let current_city = get_city(request);
 	let visited = await get_visitors();
 
@@ -20,7 +20,7 @@ export const get: RequestHandler<GetResponse> = async function ({ request }) {
 	};
 };
 
-export const post: RequestHandler = async function ({ request }) {
+export const POST: RequestHandler = async function ({ request }) {
 	const city = get_city(request);
 	await add_visitor(city);
 
