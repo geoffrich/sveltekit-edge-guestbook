@@ -1,7 +1,6 @@
 import type { RequestHandler } from './__types/index';
-import { CITY_HEADER, COUNTRY_HEADER } from '$lib/constants';
-import { get_visitors, add_visitor } from '$lib/data';
 import type { Visit } from '$lib/types';
+import { get_visitors, add_visitor } from '$lib/data';
 
 interface GetResponse {
 	visited: Visit[];
@@ -33,15 +32,5 @@ export const POST: RequestHandler = async function ({ request }) {
 };
 
 function get_city(request: Request) {
-	const city = request.headers.get(CITY_HEADER) ?? 'unknown city';
-	const country = get_country_name(request.headers.get(COUNTRY_HEADER));
-	return `${city}, ${country}`;
-}
-
-const display_names = new Intl.DisplayNames(['en'], { type: 'region' });
-function get_country_name(countryCode: string | null) {
-	if (countryCode) {
-		return display_names.of(countryCode);
-	}
-	return 'unknown country';
+	return 'Kakariko Village, Hyrule';
 }
