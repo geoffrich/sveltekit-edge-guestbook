@@ -17,7 +17,8 @@
 		padding: 1rem;
 	}
 
-	main > :global(* + *) {
+	main > :global(* + *),
+	:global(.flow > * + *) {
 		margin-top: var(--flow-space, 1em);
 	}
 </style>
