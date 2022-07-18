@@ -5,6 +5,10 @@
 	export let visited: Visit[];
 	export let current_city: string;
 	export let signed = false;
+
+	const cities = visited.map((v) => v.city.split(', '));
+	const num_cities = new Set(cities.map((c) => c[0])).size;
+	const num_countries = new Set(cities.map((c) => c[1])).size;
 </script>
 
 <h1>SvelteKit Edge Guest Book</h1>
@@ -29,7 +33,9 @@
 {/if}
 
 {#if visited.length > 0}
-	<p>This page has been visited by guests from the following cities:</p>
+	<p>
+		This page has been visited by guests from {num_cities} cities and {num_countries} countries:
+	</p>
 	<ul>
 		{#each visited as visit (visit.city)}
 			<li in:slide>{visit.city} ({visit.count})</li>
