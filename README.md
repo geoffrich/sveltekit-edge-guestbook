@@ -1,18 +1,8 @@
-# create-svelte
+# sveltekit-edge-guestbook
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Demo for a blog post about building a guest book with SvelteKit and Upstash Redis and deployed to Vercel Edge Functions.
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte
-
-# create a new project in my-app
-npm init svelte my-app
-```
+To run locally, you will need to create an Upstash instance and put the required keys in a `.env` file. See `sample.env` for an example. You can find the required values in the "REST API" section of your database settings in the Upstash console.
 
 ## Developing
 
