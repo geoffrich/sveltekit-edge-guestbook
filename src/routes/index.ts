@@ -1,7 +1,6 @@
 import type { RequestHandler } from './__types/index';
 import type { Visit } from '$lib/types';
 import { get_visitors, add_visitor } from '$lib/data';
-import { CITY_HEADER, COUNTRY_HEADER } from '$lib/constants';
 
 interface GetResponse {
 	visited: Visit[];
