@@ -1,17 +1,29 @@
 import { Redis } from '@upstash/redis';
-import type { Visit } from './types';
+import { UPSTASH_REDIS_REST_TOKEN, UPSTASH_REDIS_REST_URL } from '$env/static/private';
+
+interface Visit {
+	city: string;
+	count: string;
+}
 
 const set_name = 'visitors';
 
 export async function get_visitors(): Promise<Visit[]> {
-	const redis = Redis.fromEnv();
+	const redis = get_redis();
 	const visitors = await redis.zrange<string[]>(set_name, 0, -1, { withScores: true });
 	return adapt_visitors(visitors);
 }
 
 export async function add_visitor(city: string) {
-	const redis = Redis.fromEnv();
+	const redis = get_redis();
 	await redis.zincrby(set_name, 1, city);
+}
+
+function get_redis() {
+	return new Redis({
+		url: UPSTASH_REDIS_REST_URL,
+		token: UPSTASH_REDIS_REST_TOKEN
+	});
 }
 
 // takes the result from ZRANGE and adapt it into a list of visits

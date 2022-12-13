@@ -1,45 +1,37 @@
 <script lang="ts">
-	import { enhance } from '$lib/enhance';
-	import type { Visit } from '$lib/types';
+	import { enhance } from '$app/forms';
 	import { slide } from 'svelte/transition';
-	export let visited: Visit[];
-	export let current_city: string;
-	export let signed = false;
+	import type { ActionData, PageData } from './$types';
 
-	const cities = visited.map((v) => v.city.split(', '));
+	export let data: PageData;
+	export let form: ActionData;
+
+	const cities = data.visited.map((v) => v.city.split(', '));
 	const countries = [...new Set(cities.map((c) => c[1]))].sort();
 </script>
 
 <h1>SvelteKit Edge Guest Book</h1>
 
-{#if signed}
+{#if form?.signed}
 	<p>Thanks for signing the guest book!</p>
 {:else}
 	<p>
-		We see you're from {current_city}. Would you like to sign the guest book?
+		We see you're from {data.current_city}. Would you like to sign the guest book?
 	</p>
-	<form
-		action="/"
-		method="post"
-		use:enhance={{
-			result: () => {
-				signed = true;
-			}
-		}}
-	>
+	<form action="/" method="post" use:enhance>
 		<button>I was here</button>
 	</form>
 {/if}
 
-{#if visited.length > 0}
+{#if data.visited.length > 0}
 	<p>
-		This page has been visited by guests from {visited.length} cities and {countries.length} countries.
+		This page has been visited by guests from {data.visited.length} cities and {countries.length} countries.
 	</p>
 	<div class="grid">
 		<div class="flow">
 			<h2>Cities</h2>
 			<ul>
-				{#each visited as visit (visit.city)}
+				{#each data.visited as visit (visit.city)}
 					<li in:slide>{visit.city} ({visit.count})</li>
 				{/each}
 			</ul>
