@@ -1,8 +1,9 @@
 import type { Handle } from '@sveltejs/kit';
 import { COUNTRY_HEADER, CITY_HEADER } from '$lib/constants';
+import { dev } from '$app/environment';
 
 export const handle: Handle = async function ({ event, resolve }) {
-	if (import.meta.env.DEV) {
+	if (dev) {
 		event.request.headers.append(CITY_HEADER, 'Kakariko Village');
 		event.request.headers.append(COUNTRY_HEADER, 'JP');
 	}
