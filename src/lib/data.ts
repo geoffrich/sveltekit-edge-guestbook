@@ -1,4 +1,7 @@
-import type { Visit } from './types';
+interface Visit {
+	city: string;
+	count: string;
+}
 
 export async function get_visitors(): Promise<Visit[]> {
 	// TODO
