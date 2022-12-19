@@ -39,7 +39,7 @@ One cool thing is that the data is submitted via a `<form>`, so it does _not_ ne
 </form>
 ```
 
-In `src/routes/+page.server.ts` we have our [`load` function](https://kit.svelte.dev/docs/load), which supplies data to the page, and our default [form action](https://kit.svelte.dev/docs/form-actions), which will handle form submissions. Currently, the endpoints call the `get_visitors` and `add_visitor` functions from our `$lib` directory to retrieve and update the list of visits. They also call a local `get_city` method to get the user’s city. Those methods are stubbed out for now, since we’ll be implementing them as part of this tutorial.
+In `src/routes/+page.server.ts` we have our [`load` function](https://kit.svelte.dev/docs/load), which supplies data to the page, and our default [form action](https://kit.svelte.dev/docs/form-actions), which will handle form submissions. Currently, they call the `get_visitors` and `add_visitor` functions from our `$lib` directory to retrieve and update the list of visits. They also call a local `get_city` method to get the user’s city. Those methods are stubbed out for now, since we’ll be implementing them as part of this tutorial.
 
 ## Getting the user’s location
 
