@@ -23,15 +23,5 @@ export const actions: Actions = {
 };
 
 function get_city(request: Request) {
-	const city = request.headers.get(CITY_HEADER) ?? 'unknown city';
-	const country = get_country_name(request.headers.get(COUNTRY_HEADER));
-	return `${city}, ${country}`;
-}
-
-const display_names = new Intl.DisplayNames(['en'], { type: 'region' });
-function get_country_name(country_code: string | null) {
-	if (country_code) {
-		return display_names.of(country_code);
-	}
-	return 'unknown country';
+	return '???';
 }
